@@ -211,11 +211,6 @@ export default class App {
     ctx.stroke();
 
     this.$clock!.innerHTML = formatDate(now);
-
-    console.log(performance.now())
-    console.log(new Date)
-    console.log(new Date)
-    console.log(performance.now())
   }
 }
 
