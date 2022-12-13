@@ -1,0 +1,38 @@
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#app {
+  position: relative;
+  background-color: black;
+  color: white;
+}
+
+#app canvas {
+  height: 100%;
+  width: 100%;
+}
+
+#app .clock-container {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#app .clock {
+  margin: auto;
+  font-size: 42px;
+  font-family: 'Red Hat Mono';
+}
