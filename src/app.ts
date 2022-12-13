@@ -36,7 +36,7 @@ export default class App {
     window.addEventListener('wheel', e => {
       const coeff = 1000;
       this.scale *= Math.exp(-e.deltaY / coeff);
-      console.log(this.scale)
+      console.log('scaling', this.scale)
     });
   }
 
@@ -73,6 +73,8 @@ export default class App {
     this.clear();
 
     const now = new Date();
+    const perfNow = performance.now();
+    const subMillisecond = perfNow - Math.floor(perfNow);
     const [width, height] = this.getCanvasSize();
     const widthHalf = width / 2;
     const heightHalf = height / 2;
@@ -186,19 +188,21 @@ export default class App {
 
     // Milliseconds
     if (this.scale > threshold / magnSecond) {
+      const millisecondOffset = (1 - subMillisecond) / 1000 / magnMillisecond;
+
       const style = 'white';
       const barHeight = 2;
       ctx.lineWidth = 1;
       ctx.strokeStyle = style;
 
-      for (let x = widthHalf; x < width; x += this.scale * magnMillisecond) {
+      for (let x = widthHalf + (millisecondOffset * this.scale * magnMillisecond); x < width; x += this.scale * magnMillisecond) {
         ctx.beginPath();
         ctx.moveTo(x, heightHalf - barHeight / 2);
         ctx.lineTo(x, heightHalf + barHeight / 2)
         ctx.stroke();
       }
 
-      for (let x = widthHalf; x >= 0; x -= this.scale * magnMillisecond) {
+      for (let x = widthHalf + ((millisecondOffset - 1) * this.scale * magnMillisecond); x >= 0; x -= this.scale * magnMillisecond) {
         ctx.beginPath();
         ctx.moveTo(x, heightHalf - barHeight / 2);
         ctx.lineTo(x, heightHalf + barHeight / 2)
