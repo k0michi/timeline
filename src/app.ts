@@ -78,7 +78,7 @@ export default class App {
     const [width, height] = this.getCanvasSize();
     const widthHalf = width / 2;
     const heightHalf = height / 2;
-    const threshold = 10;
+    const threshold = 50;
 
     const magnDate = 60 * 60 * 24;
     const magnHour = 60 * 60;
