@@ -86,6 +86,14 @@ export default class App {
     const magnSecond = 1;
     const magnMillisecond = 1 / 1000;
 
+    const style = 'white';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = style;
+    ctx.beginPath();
+    ctx.moveTo(0, heightHalf);
+    ctx.lineTo(width, heightHalf)
+    ctx.stroke();
+
     // Dates
     {
       const ceil = ceilDate(now);
@@ -191,7 +199,7 @@ export default class App {
       const millisecondOffset = (1 - subMillisecond) / 1000 / magnMillisecond;
 
       const style = 'white';
-      const barHeight = 2;
+      const barHeight = 6;
       ctx.lineWidth = 1;
       ctx.strokeStyle = style;
 
@@ -210,7 +218,7 @@ export default class App {
       }
     }
 
-    const barHeight = 50;
+    const barHeight = 64;
     ctx.lineWidth = 1;
     ctx.strokeStyle = `red`;
     ctx.beginPath();
