@@ -76,26 +76,32 @@ export default class App {
     const [width, height] = this.getCanvasSize();
     const widthHalf = width / 2;
     const heightHalf = height / 2;
+    const threshold = 10;
+
+    const magnDate = 60 * 60 * 24;
+    const magnHour = 60 * 60;
+    const magnMinute = 60;
+    const magnSecond = 1;
+    const magnMillisecond = 1 / 1000;
 
     // Dates
     {
       const ceil = ceilDate(now);
-      const scaleD = 60 * 60 * 24;
-      const minuteOffset = subtractDate(ceil, now) / 1000 /scaleD;
+      const minuteOffset = subtractDate(ceil, now) / 1000 / magnDate;
 
       const style = 'white';
       const barHeight = 96;
       ctx.lineWidth = 1;
       ctx.strokeStyle = style;
 
-      for (let x = widthHalf + (minuteOffset * this.scale * scaleD); x < width; x += this.scale * scaleD) {
+      for (let x = widthHalf + (minuteOffset * this.scale * magnDate); x < width; x += this.scale * magnDate) {
         ctx.beginPath();
         ctx.moveTo(x, heightHalf - barHeight / 2);
         ctx.lineTo(x, heightHalf + barHeight / 2)
         ctx.stroke();
       }
 
-      for (let x = widthHalf + ((minuteOffset - 1) * this.scale * scaleD); x >= 0; x -= this.scale * scaleD) {
+      for (let x = widthHalf + ((minuteOffset - 1) * this.scale * magnDate); x >= 0; x -= this.scale * magnDate) {
         ctx.beginPath();
         ctx.moveTo(x, heightHalf - barHeight / 2);
         ctx.lineTo(x, heightHalf + barHeight / 2)
@@ -104,24 +110,23 @@ export default class App {
     }
 
     // Hours
-    {
+    if (this.scale > threshold / magnDate) {
       const ceil = ceilHour(now);
-      const scaleH = 60 * 60;
-      const minuteOffset = subtractDate(ceil, now) / 1000 / scaleH;
+      const minuteOffset = subtractDate(ceil, now) / 1000 / magnHour;
 
       const style = 'white';
       const barHeight = 64;
       ctx.lineWidth = 1;
       ctx.strokeStyle = style;
 
-      for (let x = widthHalf + (minuteOffset * this.scale * scaleH); x < width; x += this.scale * scaleH) {
+      for (let x = widthHalf + (minuteOffset * this.scale * magnHour); x < width; x += this.scale * magnHour) {
         ctx.beginPath();
         ctx.moveTo(x, heightHalf - barHeight / 2);
         ctx.lineTo(x, heightHalf + barHeight / 2)
         ctx.stroke();
       }
 
-      for (let x = widthHalf + ((minuteOffset - 1) * this.scale * scaleH); x >= 0; x -= this.scale * scaleH) {
+      for (let x = widthHalf + ((minuteOffset - 1) * this.scale * magnHour); x >= 0; x -= this.scale * magnHour) {
         ctx.beginPath();
         ctx.moveTo(x, heightHalf - barHeight / 2);
         ctx.lineTo(x, heightHalf + barHeight / 2)
@@ -130,24 +135,23 @@ export default class App {
     }
 
     // Minutes
-    {
+    if (this.scale > threshold / magnHour) {
       const ceil = ceilMinute(now);
-      const scaleM = 60;
-      const minuteOffset = subtractDate(ceil, now) / 1000 / scaleM;
+      const minuteOffset = subtractDate(ceil, now) / 1000 / magnMinute;
 
       const style = 'white';
       const barHeight = 32;
       ctx.lineWidth = 1;
       ctx.strokeStyle = style;
 
-      for (let x = widthHalf + (minuteOffset * this.scale * scaleM); x < width; x += this.scale * scaleM) {
+      for (let x = widthHalf + (minuteOffset * this.scale * magnMinute); x < width; x += this.scale * magnMinute) {
         ctx.beginPath();
         ctx.moveTo(x, heightHalf - barHeight / 2);
         ctx.lineTo(x, heightHalf + barHeight / 2)
         ctx.stroke();
       }
 
-      for (let x = widthHalf + ((minuteOffset - 1) * this.scale * scaleM); x >= 0; x -= this.scale * scaleM) {
+      for (let x = widthHalf + ((minuteOffset - 1) * this.scale * magnMinute); x >= 0; x -= this.scale * magnMinute) {
         ctx.beginPath();
         ctx.moveTo(x, heightHalf - barHeight / 2);
         ctx.lineTo(x, heightHalf + barHeight / 2)
@@ -156,7 +160,7 @@ export default class App {
     }
 
     // Seconds
-    if (this.scale > 1) {
+    if (this.scale > threshold / magnMinute) {
       const ceil = ceilSecond(now);
       const secondOffset = subtractDate(ceil, now) / 1000;
 
@@ -181,20 +185,20 @@ export default class App {
     }
 
     // Milliseconds
-    if (this.scale > 10) {
+    if (this.scale > threshold / magnSecond) {
       const style = 'white';
       const barHeight = 2;
       ctx.lineWidth = 1;
       ctx.strokeStyle = style;
 
-      for (let x = widthHalf; x < width; x += this.scale / 1000) {
+      for (let x = widthHalf; x < width; x += this.scale * magnMillisecond) {
         ctx.beginPath();
         ctx.moveTo(x, heightHalf - barHeight / 2);
         ctx.lineTo(x, heightHalf + barHeight / 2)
         ctx.stroke();
       }
 
-      for (let x = widthHalf; x >= 0; x -= this.scale / 1000) {
+      for (let x = widthHalf; x >= 0; x -= this.scale * magnMillisecond) {
         ctx.beginPath();
         ctx.moveTo(x, heightHalf - barHeight / 2);
         ctx.lineTo(x, heightHalf + barHeight / 2)
