@@ -300,7 +300,7 @@ function subtractDate(a: Date, b: Date) {
 }
 
 function formatDate(date: Date) {
-  return `${date.getFullYear()}-${padZero(date.getMonth() + 1, 2)}-${padZero(date.getDate(), 2)} ${padZero(date.getHours(), 2)}:${padZero(date.getMinutes(), 2)}:${padZero(date.getSeconds(), 2)}.${padZero(date.getMilliseconds(), 3)}`;
+  return `${date.getFullYear()}/${padZero(date.getMonth() + 1, 2)}/${padZero(date.getDate(), 2)} ${padZero(date.getHours(), 2)}:${padZero(date.getMinutes(), 2)}:${padZero(date.getSeconds(), 2)}.${padZero(date.getMilliseconds(), 3)}`;
 }
 
 function padZero(number: number, digits: number) {
